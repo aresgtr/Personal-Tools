@@ -155,6 +155,23 @@ save(data2,file="data3.RData")
 save(wvs7_csv, wvs7_xlsx, file="D:/Dropbox/Teaching/QDA/Courses/SOSC2400_2021F/^Shared/Classes/W3/R/wvs7_2.RData")
 ```
 
+土法自制 Data Frame
+
+```r
+var1 <- c("A","B","C","D","E")         # string
+var2 <- c(21,34,56,54,32)              # numeric
+var3 <- c(TRUE,FALSE,TRUE,FALSE,FALSE) # logical
+
+mydata1 <- data.frame(
+  name1 = c("A","B","C","D","E"),
+  name2 = c(21,34,56,54,32),
+  name3 = c(TRUE,FALSE,TRUE,FALSE,FALSE)
+)
+
+dim(mydata1)
+class(mydata1)
+```
+
 ## Packages
 
 ```r
