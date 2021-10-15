@@ -97,7 +97,7 @@ load("wvs7.RData")
 data2 <- read.csv("wvs7.csv")
 ```
 
-Explore data
+### Explore data
 
 ```r
 # returns the numbers of observations and variables
@@ -149,6 +149,10 @@ Save data
 ## save csv data
 write.csv(data2, file = "data3.csv")
 
+write.csv(x=mydf, 
+          file="basicinfo_xpt.csv",
+          row.names = F) # Row names excluded
+
 ## save R data
 save(data2,file="data3.RData")
 
@@ -172,6 +176,13 @@ dim(mydata1)
 class(mydata1)
 ```
 
+Correlation
+
+```r
+# FYI 里面的例子
+cor(USArrests$Murder, USArrests$Assault)
+```
+
 ## Packages
 
 ```r
@@ -193,3 +204,25 @@ To see which packages are currently attached. You can also check in the **Packag
 ```r
 sessionInfo()
 ```
+
+## Plots
+
+### Bar Plot
+
+```r
+barplot(table(wvs7$ms))
+```
+
+<img src="R_Cheat_Sheet/barplot_before" width="400">
+
+```r
+# Modified barplot
+barplot(sort(table(wvs7$ms), decreasing=T), 
+        main="Marital Status, WVS 7", 
+        ylab="Count", ylim=c(0,1200), 
+        names.arg=c("Married", "Living together as married", "Divorced", "Separated", "Widowed", "Single"),
+        las=2
+        ) 
+```
+
+<img src="R_Cheat_Sheet/barplot_after" width="400">
