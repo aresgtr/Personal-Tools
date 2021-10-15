@@ -226,3 +226,31 @@ barplot(sort(table(wvs7$ms), decreasing=T),
 ```
 
 <img src="R_Cheat_Sheet/barplot_after" width="400">
+
+---
+
+### Histogram
+
+```r
+hist(wvs7$age)
+```
+<img src="R_Cheat_Sheet/histplot1" width="400">
+
+```r
+# prob instead of count for y axis
+hist(wvs7$age, prob = TRUE)
+```
+
+<img src="R_Cheat_Sheet/histplot2" width="400">
+
+```r
+hist(wvs7$age,
+     probability=TRUE,  
+     breaks = 15, # specify #intervals
+     xlab = "Age",
+     main = "Distribution of Age (WVS, Wave 7)")
+
+lines(density(wvs7$age, na.rm = T))  # FYI
+```
+
+<img src="R_Cheat_Sheet/histplot3" width="400">
