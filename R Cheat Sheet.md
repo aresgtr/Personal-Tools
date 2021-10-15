@@ -254,3 +254,12 @@ lines(density(wvs7$age, na.rm = T))  # FYI
 ```
 
 <img src="R_Cheat_Sheet/histplot3" width="400">
+
+---
+
+### Boxplot
+
+```r
+boxplot(wvs7$age)
+```
+<img src="R_Cheat_Sheet/boxplot" width="400">
