@@ -268,7 +268,7 @@ lines(density(wvs7$age, na.rm = T))  # FYI
 
 ```r
 # Histogram in practice 2
-hist(HKC$djhhinc[HKC$djhhinc<999999], #eliminate outliers
+hist(HKC$djhhinc[HKC$djhhinc<999999], #eliminate outliers，通过boxplot和summary判断
      probability = TRUE,
      breaks = 10,
      xlab = "Monthly household income",
@@ -285,6 +285,20 @@ hist(HKC$djhhinc[HKC$djhhinc<999999], #eliminate outliers
 boxplot(wvs7$age)
 ```
 <img src="R_Cheat_Sheet/boxplot" width="400">
+
+#### 判断 ourlier
+
+```r
+> table(HKC$djhhinc) # numerical variable
+
+> summary(HKC$djhhinc)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+      0   13580   25000   59429   45422  999999     447 
+
+> boxplot(HKC$djhhinc)
+```
+
+<img src="R_Cheat_Sheet/boxplot_outlier" width="400">
 
 ---
 
