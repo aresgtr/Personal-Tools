@@ -336,6 +336,13 @@ plot(wvs7$age, wvs7$scitech, # Note that "x=" and "y=" omitted. Should we be wor
 
 <img src="R_Cheat_Sheet/scatter2" width="400">
 
+```r
+# Add line
+abline(lm(wvs7$scitech ~ wvs7$age, data = wvs7), col = "blue")
+```
+
+<img src="R_Cheat_Sheet/scatter3" width="400">
+
 #### Correlation Coefficient
 
 ```r
