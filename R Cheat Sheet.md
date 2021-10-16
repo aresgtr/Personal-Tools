@@ -227,6 +227,17 @@ barplot(sort(table(wvs7$ms), decreasing=T),
 
 <img src="R_Cheat_Sheet/barplot_after" width="400">
 
+```r
+# Barplot in practice 2
+barplot(sort(table(HKC$sch_att), decreasing=T), # categorical variable
+        main = "School Attendence, HKC 2011",
+        ylab = "Count", ylim=c(0, 25000),
+        names.arg=c("Completed", "Full-time", "NA", "Withdrawn", "Part-time", "Distance Learning Course"),
+        las=2)
+```
+
+<img src="R_Cheat_Sheet/barplot3" width="400">
+
 ---
 
 ### Histogram
@@ -255,6 +266,17 @@ lines(density(wvs7$age, na.rm = T))  # FYI
 
 <img src="R_Cheat_Sheet/histplot3" width="400">
 
+```r
+# Histogram in practice 2
+hist(HKC$djhhinc[HKC$djhhinc<999999], #eliminate outliers
+     probability = TRUE,
+     breaks = 10,
+     xlab = "Monthly household income",
+     main = "Distribution of monthly household income (HKC, 2011)")
+```
+
+<img src="R_Cheat_Sheet/histplot4" width="400">
+
 ---
 
 ### Boxplot
@@ -263,3 +285,15 @@ lines(density(wvs7$age, na.rm = T))  # FYI
 boxplot(wvs7$age)
 ```
 <img src="R_Cheat_Sheet/boxplot" width="400">
+
+---
+
+### Pie Chart
+
+```r
+pie(table(HKC$hhtype), # categorical variable
+    main = "Pie Chart of Household Type",
+    lbls <- c("Domestic Households", "Non-domestic Households"))
+```
+
+<img src="R_Cheat_Sheet/pie" width="400">
