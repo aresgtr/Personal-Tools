@@ -311,3 +311,51 @@ pie(table(HKC$hhtype), # categorical variable
 ```
 
 <img src="R_Cheat_Sheet/pie" width="400">
+
+---
+
+### Describe Relationship
+
+#### Scatterplot
+
+```r
+#! FYI, x and y need to be of the same length
+plot(x=wvs7$age, y=wvs7$scitech)
+```
+
+<img src="R_Cheat_Sheet/scatter1" width="400">
+
+```r
+plot(wvs7$age, wvs7$scitech, # Note that "x=" and "y=" omitted. Should we be worried?
+     main = "Scatterplot Example 1",
+     xlab = "Age ",
+     ylab = "Support for science and tech ",
+     type = "p",      # points
+     col  = "red")
+```
+
+<img src="R_Cheat_Sheet/scatter2" width="400">
+
+#### Correlation Coefficient
+
+```r
+cor(wvs7$age, wvs7$scitech) # Oops..
+cor(wvs7$age, wvs7$scitech, use = "pairwise.complete.obs") # 处理 missing value
+```
+
+#### Two-way Table
+
+```r
+wvs7$female <- wvs7$q260 - 1
+wvs7$happy <- wvs7$q46 #q46 "Feeling of happiness": 1.- Very happy 2.- Quite happy 3.- Not very happy 4.- Not at all happy
+```
+
+```r
+> table(wvs7$happy, wvs7$female)
+   
+      0   1
+  1  99 129
+  2 664 777
+  3 162 196
+  4  25  19
+```
