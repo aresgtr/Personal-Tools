@@ -68,3 +68,37 @@ FROM Products
 WHERE prod_price BETWEEN 3 AND 6
 ORDER BY prod_price;
 ```
+## 第5课 高级数据过滤
+1．编写SQL语句，从Vendors表中检索供应商名称（vend_name），仅返回加利福尼亚州的供应商（这需要按国家[USA]和州[CA]进行过滤，没准其他国家也存在一个加利福尼亚州）。提示：过滤器需要匹配字符串。
+```SQL
+SELECT vend_name
+FROM Vendors
+WHERE vend_country = 'USA' AND vend_state = 'CA';
+```
+2．编写SQL语句，查找所有至少订购了总量100个的BR01、BR02或BR03的订单。你需要返回OrderItems表的订单号（order_num）、产品ID（prod_id）和数量，并按产品ID和数量进行过滤。提示：根据编写过滤器的方式，可能需要特别注意求值顺序。
+```SQL
+-- Solution 1
+SELECT order_num, prod_id, quantity
+FROM OrderItems
+WHERE (prod_id = 'BR01' OR prod_id = 'BR02' OR prod_id = 'BR03') AND quantity >= 100;
+
+-- Solution 2
+SELECT order_num, prod_id, quantity
+FROM OrderItems
+WHERE prod_id IN ('BR01', 'BR02', 'BR03') AND quantity >= 100;
+```
+3．现在，我们回顾上一课的挑战题。编写SQL语句，返回所有价格在3美元到6美元之间的产品的名称（prod_name）和价格（prod_price）。使用AND，然后按价格对结果进行排序。
+```SQL
+SELECT prod_name, prod_price
+FROM Products
+WHERE prod_price >= 3 AND prod_price <= 6
+ORDER BY prod_price;
+```
+4．下面的SQL语句有问题吗？（尝试在不运行的情况下指出。）
+```SQL
+SELECT vend_name
+From Vendors
+ORDER BY vend_name
+WHERE vend_country = 'USA' AND vend_state = 'CA';
+```
+答案: `ORDER BY`  must came after any `WHERE` clause.
