@@ -193,3 +193,21 @@ FROM Orders
 WHERE strftime('%Y', order_date) = '2020'
  AND strftime('%m', order_date) = '01';
 ```
+## 第9课 汇总数据
+1．编写SQL语句，确定已售出产品的总数（使用OrderItems中的quantity列）。
+```SQL
+SELECT SUM(quantity) AS items_ordered
+FROM OrderItems;
+```
+2．修改刚刚创建的语句，确定已售出产品项（prod_id）BR01的总数。
+```SQL
+SELECT SUM(quantity) AS items_ordered
+FROM OrderItems
+WHERE prod_id = 'BR01';
+```
+3．编写SQL语句，确定Products表中价格不超过10美元的最贵产品的价格（prod_price）。将计算所得的字段命名为max_price
+```SQL
+SELECT MAX(prod_price) AS max_price
+FROM Products
+WHERE prod_price <= 10;
+```
