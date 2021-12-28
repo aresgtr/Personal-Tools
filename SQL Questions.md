@@ -211,3 +211,43 @@ SELECT MAX(prod_price) AS max_price
 FROM Products
 WHERE prod_price <= 10;
 ```
+## 第10课 分组数据
+1．OrderItems表包含每个订单的每个产品。编写SQL语句，返回每个订单号（order_num）各有多少行数（order_lines），并按order_lines对结果进行排序。
+```SQL
+SELECT order_num, COUNT(*) AS order_lines
+FROM OrderItems
+GROUP BY order_num
+ORDER BY order_lines;
+```
+2．编写SQL语句，返回名为cheapest_item的字段，该字段包含每个供应商成本最低的产品（使用Products表中的prod_price），然后从最低成本到最高成本对结果进行排序
+```SQL
+SELECT vend_id, MIN(prod_price) AS cheapest_item
+FROM Products
+GROUP BY vend_id
+ORDER BY cheapest_item;
+```
+3．确定最佳顾客非常重要，请编写SQL语句，返回至少含100项的所有订单的订单号（OrderItems表中的order_num）。
+```SQL
+SELECT order_num
+FROM OrderItems
+Group BY order_num
+HAVING SUM(quantity) >= 100
+ORDER BY order_num;
+```
+4．确定最佳顾客的另一种方式是看他们花了多少钱。编写SQL语句，返回总价至少为1000的所有订单的订单号（OrderItems表中的order_num）。提示：需要计算总和（item_price乘以quantity）。按订单号对结果进行排序。
+```SQL
+SELECT order_num, SUM(item_price*quantity) AS total_price
+FROM OrderItems
+GROUP BY order_num
+HAVING SUM(item_price*quantity) >= 1000
+ORDER BY order_num;
+```
+5．下面的SQL语句有问题吗？（尝试在不运行的情况下指出。）
+```SQL
+SELECT order_num, COUNT(*) AS items
+FROM OrderItems
+GROUP BY items
+HAVING COUNT(*) >= 3
+ORDER BY items, order_num;
+```
+答案: `GROUP BY` items is incorrect. `GROUP BY` must be an actual column, not the one being used to perform the aggregate calculations. `GROUP BY` order_num would be allowed. 
