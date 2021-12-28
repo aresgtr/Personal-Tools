@@ -250,4 +250,4 @@ GROUP BY items
 HAVING COUNT(*) >= 3
 ORDER BY items, order_num;
 ```
-答案: `GROUP BY` items is incorrect. `GROUP BY` must be an actual column, not the one being used to perform the aggregate calculations. `GROUP BY` order_num would be allowed. 
+答案: `GROUP BY` items is incorrect. `GROUP BY` must be an actual column, not the one being used to perform the aggregate calculations. `GROUP BY` order_num would be allowed.
