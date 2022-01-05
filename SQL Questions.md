@@ -1,4 +1,26 @@
 # SQL必知必会第五版练习笔记
+## 数据库例
+### Products
+| prod_id | prod_name | prod_price | vend_id | prod_desc|
+| --- | --- | --- | --- | --- |
+| BNBG01 | Fish bean bag toy | 3.49 | BRS01 |   |
+| BR01   | 8 inch teddy bear | 5.99 | DLL01 |   |
+### Customers
+| cust_id | cust_name | cust_email |
+| --- | --- | --- |
+| 01 | Kids Place | |
+| 02 | The Toy Store | |
+### Orders
+| order_num | cust_id | order_date |
+| --- | --- | --- |
+### OrderItems
+| order_num | prod_id | quantity| item_price |
+| --- | --- | --- | --- |
+### Vendors
+| vend_id | vend_name | vend_country | vend_state | vend_address | vend_city |
+| --- | --- | --- | --- | --- | --- |
+| BRS01 |  | USA| CA|   |   |
+| DLL01 |  | USA| CA|   |   |
 ## 第2课 检索数据
 1．编写SQL语句，从Customers表中检索所有的ID（cust_id）。
 ```SQL
@@ -8,7 +30,7 @@ FROM Customers;
 2．OrderItems表包含了所有已订购的产品（有些已被订购多次）。编写SQL语句，检索并列出已订购产品（prod_id）的清单（不用列每个订单，只列出不同产品的清单）。提示：最终应该显示7行。
 ```SQL
 SELECT DISTINCT prod_id
-FROM OrderItes;
+FROM OrderItems;
 ```
 3．编写SQL语句，检索Customers表中所有的列，再编写另外的SELECT语句，仅检索顾客的ID。使用注释，注释掉一条SELECT语句，以便运行另一条SELECT语句。（当然，要测试这两个语句。）
 ```SQL
@@ -305,4 +327,19 @@ SELECT prod_name, (
         WHERE Products.prod_id = OrderItems.prod_id
 ) AS quant_sold
 FROM Products;
+```
+## 第12课 联结表
+1．编写SQL语句，返回Customers表中的顾客名称（cust_name）和Orders表中的相关订单号（order_num），并按顾客名称再按订单号对结果进行排序。实际上是尝试两次，一次使用简单的等联结语法，一次使用INNER JOIN。
+```SQL
+-- Equijoin syntax
+SELECT cust_name, order_num
+FROM Customers, Orders
+WHERE Customers.cust_id = Orders.cust_id
+ORDER BY cust_name, order_num;
+
+-- ANSI INNER JOIN syntax
+SELECT cust_name, order_num
+FROM Customers
+INNER JOIN Orders ON Customers.cust_id = Orders.cust_id
+ORDER BY cust_name, order_num;
 ```
