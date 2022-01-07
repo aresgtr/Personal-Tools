@@ -343,3 +343,22 @@ FROM Customers
 INNER JOIN Orders ON Customers.cust_id = Orders.cust_id
 ORDER BY cust_name, order_num;
 ```
+2．我们来让上一题变得更有用些。除了返回顾客名称和订单号，添加第三列OrderTotal，其中包含每个订单的总价。有两种方法可以执行此操作：使用OrderItems表的子查询来创建OrderTotal列，或者将OrderItems表与现有表联结并使用聚合函数。提示：请注意需要使用完全限定列名的地方。
+```SQL
+-- Solution using subqueries
+SELECT cust_name, order_num, (
+        SELECT SUM(quantity * item_price)
+        FROM OrderItems
+        WHERE OrderItems.order_num = Orders.order_num) AS OrderTotal
+FROM Customers, Orders
+WHERE Customers.cust_id = Orders.cust_id
+ORDER BY cust_name, order_num;
+
+-- Solution using joins
+SELECT cust_name, order_num, SUM(quantity * item_price) AS OrderTotal
+FROM Customers, Orders, OrderItems
+WHERE Customers.cust_id = Orders.cust_id
+AND Orders.order_num = OrderItems.order_num
+GROUP BY cust_name, Orders.order_num
+ORDER BY cust_name, order_num;
+```
