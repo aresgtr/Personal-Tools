@@ -490,3 +490,33 @@ FROM Customers
 WHERE cust_state = 'IL' ORDER BY cust_name;
 ```
 答案: The `;` after the first `SELECT` statement shouldn't be there, it is terminating the statement. Also, if sorting `SELECT` statements combined with `UNION` only one `ORDER BY` may be used and it must come after the last `SELECT`.
+## 第15课 插入数据
+1．使用INSERT和指定的列，将你自己添加到Customers表中。明确列出要添加哪几列，且仅需列出你需要的列。
+```SQL
+INSERT INTO Customers(cust_id,
+                        cust_name,
+                        cust_address,
+                        cust_city,
+                        cust_state,
+                        cust_zip,
+                        cust_country,
+                        cust_email)
+VALUES(1000000042,
+        'Ben''s Toys',
+        '123 Main Street',
+        'Oak Park',
+        'MI',
+        '48237',
+        'USA',
+        'ben@forta.com');
+```
+2．备份Orders表和OrderItems表。
+```SQL
+-- MySQL, MariaDB, Oracle, PostgreSQL, SQLite
+CREATE TABLE OrdersBackup AS SELECT * FROM Orders;
+CREATE TABLE OrderItemsBackup AS SELECT * FROM OrderItems;
+
+-- SQL Server
+SELECT * INTO OrdersBackup FROM Orders;
+SELECT * INTO OrderItemsBackup FROM OrderItems;
+```
