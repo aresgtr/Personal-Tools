@@ -362,3 +362,54 @@ AND Orders.order_num = OrderItems.order_num
 GROUP BY cust_name, Orders.order_num
 ORDER BY cust_name, order_num;
 ```
+3．我们重新看一下第11课的挑战题2。编写SQL语句，检索订购产品BR01的日期，这一次使用联结和简单的等联结语法。输出应该与第11课的输出相同
+
+_“你想知道订购BR01产品的日期。编写SQL语句，使用子查询来确定哪些订单（在OrderItems中）购买了prod_id为BR01的产品，然后从Orders表中返回每个产品对应的顾客ID（cust_id）和订单日期（order_date）。按订购日期对结果进行排序。”_
+```SQL
+-- ANSI INNER JOIN syntax
+SELECT cust_id, order_date
+FROM Orders
+INNER JOIN OrderItems ON Orders.order_num = OrderItems.order_num
+WHERE prod_id = 'BRO1'
+ORDER BY order_date;
+
+-- Equijoin syntax
+SELECT cust_id, order_date
+FROM Orders, OrderItems
+WHERE Orders.order_num = OrderItems.order_num
+AND prod_id = 'BR01'
+ORDER BY order_date;
+```
+4．很有趣，我们再试一次。重新创建为第11课挑战题3编写的SQL语句，这次使用ANSI的INNER JOIN语法。在之前编写的代码中使用了两个嵌套的子查询。要重新创建它，需要两个INNER JOIN语句，每个语句的格式类似于本课讲到的INNER JOIN示例，而且不要忘记WHERE子句可以通过prod_id进行过滤。
+
+_“现在我们让它更具挑战性。在上一个挑战题，返回购买prod_id为BR01的产品的所有顾客的电子邮件（Customers表中的cust_email）。提示：这涉及SELECT语句，最内层的从OrderItems表返回order_num，中间的从Customers表返回cust_id。”_
+```SQL
+-- ANSI INNER JOIN syntax
+SELECT cust_email
+FROM Customers
+INNER JOIN Orders ON Customers.cust_id = Orders.cust_id
+INNER JOIN OrderItems ON OrderItems.order_num = Orders.order_num
+WHERE prod_id = 'BRO1';
+```
+5．再让事情变得更加有趣些，我们将混合使用联结、聚合函数和分组。准备好了吗？回到第10课，当时的挑战是要求查找值等于或大于1000的所有订单号。这些结果很有用，但更有用的是订单数量至少达到这个数的顾客名称。因此，编写SQL语句，使用联结从Customers表返回顾客名称（cust_name），并从OrderItems表返回所有订单的总价。
+
+提示：要联结这些表，还需要包括Orders表（因为Customers表与OrderItems表不直接相关，Customers表与Orders表相关，而Orders表与OrderItems表相关）。不要忘记GROUP BY和HAVING，并按顾客名称对结果进行排序。你可以使用简单的等联结或ANSI的INNER JOIN语法。或者，如果你很勇敢，请尝试使用两种方式编写。
+```SQL
+-- Equijoin syntax
+SELECT cust_name, SUM(item_price * quantity) AS total_price
+FROM Customers, Orders, OrderItems
+WHERE Customers.cust_id = Orders.cust_id
+AND Orders.order_num = OrderItems.order_num
+GROUP BY cust_name
+HAVING SUM(item_price * quantity) >= 1000
+ORDER BY cust_name;
+
+-- ANSI INNER JOIN syntax
+SELECT cust_name, SUM(item_price * quantity) AS total_price
+FROM Customers
+INNER JOIN Orders ON Customers.cust_id = Orders.cust_id
+INNER JOIN OrderItems ON Orders.order_num = OrderItems.order_num
+GROUP BY cust_name
+HAVING SUM(item_price * quantity) >= 1000
+ORDER BY cust_name;
+```
