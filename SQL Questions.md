@@ -552,3 +552,39 @@ UPDATE Vendors
 SET vend_web = 'https://google.com/'
 WHERE vend_id = 'DLL01';
 ```
+## 第18课 使用视图
+1．创建一个名为CustomersWithOrders的视图，其中包含Customers表中的所有列，但仅仅是那些已下订单的列。提示：可以在Orders表上使用JOIN来仅仅过滤所需的顾客，然后使用SELECT来确保拥有正确的数据。
+```SQL
+-- 我的回答，不知道对错
+CREATE VIEW CustomersWithOrders AS
+SELECT * FROM Customers
+INNER JOIN Orders ON Customers.cust_id = Orders.cust_id;
+
+-- 靠准答案
+CREATE VIEW CustomersWithOrders AS
+SELECT Customers.cust_id,
+       Customers.cust_name,
+       Customers.cust_address,
+       Customers.cust_city,
+       Customers.cust_state,
+       Customers.cust_zip,
+       Customers.cust_country,
+       Customers.cust_contact,
+       Customers.cust_email
+FROM Customers
+JOIN Orders ON Customers.cust_id = Orders.cust_id;
+
+SELECT * FROM CustomersWithOrders;
+```
+2．下面的SQL语句有问题吗？（尝试在不运行的情况下指出。）
+```SQL
+CREATE VIEW OrderItemsExpanded AS
+SELECT order_num,
+        prod_id,
+        quantity,
+        item_price,
+        quantity * item_price AS expanded_price
+FROM OrderItems
+ORDER BY order_num;
+```
+答案: `ORDER BY` is not allowed in views. Views are used like tables, if you need sorted data use `ORDER BY` in the `SELECT` that retrieves data from the view.
