@@ -540,3 +540,15 @@ WHERE cust_id = 1000000042;
 DELETE FROM Customers
 WHERE cust_id = 1000000042;
 ```
+## 第17课 创建和操纵表
+1．在Vendors表中添加一个网站列（vend_web）。你需要一个足以容纳URL的大文本字段。
+```SQL
+ALTER TABLE Vendors
+ADD vend_web CHAR(100);
+```
+2．使用UPDATE语句更新Vendor记录，以便加入网站（你可以编造任何地址）。
+```SQL
+UPDATE Vendors
+SET vend_web = 'https://google.com/'
+WHERE vend_id = 'DLL01';
+```
