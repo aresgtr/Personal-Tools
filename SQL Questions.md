@@ -520,3 +520,23 @@ CREATE TABLE OrderItemsBackup AS SELECT * FROM OrderItems;
 SELECT * INTO OrdersBackup FROM Orders;
 SELECT * INTO OrderItemsBackup FROM OrderItems;
 ```
+## 第16课 更新和删除数据
+1．美国各州的缩写应始终用大写。编写SQL语句来更新所有美国地址，包括供应商状态（Vendors表中的vend_state）和顾客状态（Customers表中的cust_state），使它们均为大写。
+```SQL
+UPDATE Vendors
+SET vend_state = UPPER(vend_state)
+WHERE vend_country = 'USA';
+
+UPDATE Customers
+SET cust_state = UPPER(cust_state)
+WHERE cust_country = 'USA';
+```
+2．第15课的挑战题1要求你将自己添加到Customers表中。现在请删除自己。确保使用WHERE子句（在DELETE中使用它之前，先用SELECT对其进行测试），否则你会删除所有顾客！
+```SQL
+-- First test the WHERE to make sure it selects only what you want to delete
+SELECT * FROM Customers
+WHERE cust_id = 1000000042;
+-- Then do it!
+DELETE FROM Customers
+WHERE cust_id = 1000000042;
+```
