@@ -588,3 +588,71 @@ FROM OrderItems
 ORDER BY order_num;
 ```
 答案: `ORDER BY` is not allowed in views. Views are used like tables, if you need sorted data use `ORDER BY` in the `SELECT` that retrieves data from the view.
+# LeetCode 数据库 无锁题目
+注：此部分内容语法为MySQL
+## 175. 组合两个表
+表1: Person
+| 列名         | 类型    |
+|-------------|---------|
+| PersonId    | int     |
+| FirstName   | varchar |
+| LastName    | varchar |
+
+`PersonId` 是上表主键
+
+表2: Address
+
+
+| 列名         | 类型    |
+|-|-|
+| AddressId   | int     |
+| PersonId    | int     |
+| City        | varchar |
+| State       | varchar |
+
+`AddressId` 是上表主键
+
+编写一个 SQL 查询，满足条件：无论 `person` 是否有地址信息，都需要基于上述两表提供 `person` 的以下信息：
+
+`FirstName, LastName, City, State`
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/combine-two-tables
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```SQL
+SELECT FirstName, LastName, City, State
+FROM Person
+LEFT OUTER JOIN Address ON Person.PersonId = Address.PersonId;
+```
+## 176. 第二高的薪水
+编写一个 SQL 查询，获取`Employee`表中第二高的薪水（`Salary`）。
+
+| Id | Salary |
+|-|-|
+| 1  | 100    |
+| 2  | 200    |
+| 3  | 300    |
+
+例如上述`Employee`表，SQL查询应该返回`200`作为第二高的薪水。如果不存在第二高的薪水，那么查询应返回`null`。
+
+| SecondHighestSalary |
+|-|
+| 200                 |
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/second-highest-salary
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```SQL
+# 套一层用来保存null, DISTINCT用来去重
+SELECT (SELECT DISTINCT Salary
+FROM Employee
+ORDER BY Salary DESC
+LIMIT 1 OFFSET 1)  AS SecondHighestSalary;
+
+-- ORDER BY也可以去重
+SELECT (SELECT Salary
+FROM Employee
+GROUP BY Salary
+ORDER BY Salary DESC
+LIMIT 1 OFFSET 1)  AS SecondHighestSalary;
+```
